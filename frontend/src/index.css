@@ -150,19 +150,36 @@ body { background-color:#0d2e40; }
 .background-layout {
   position: relative;
   overflow: hidden;
-  width: 100%; /* avoid scrollbar width causing white strip */
+  width: 100%;
   min-height: 100vh;
-  background-image: url("https://storage.123fakturera.se/public/icons/diamond.png"), url("https://storage.123fakturera.se/public/wallpapers/sverige43.jpg");
-  background-size: 50px 30px, cover;
-  background-repeat: no-repeat, no-repeat;
-  background-position: 14% 2%, center;
-  background-attachment: scroll, fixed; /* second fixed for desktop */
-  background-color: #0d2e40; /* fallback color */
+  /* background handled by .background-container */
+}
+/* For very tall screens shift position to center to avoid excessive top focus */
+@media (min-height: 1100px) {
+  .background-container { background-position: 14% 2%, center center; }
 }
 /* iOS/mobile browsers often repaint white with fixed backgrounds; disable fixed attachment on small screens */
 @media (max-width: 800px) {
-  .background-layout { background-attachment: scroll, scroll; }
+  .background-container { background-attachment: scroll, scroll; }
 }
+
+/* Fixed full-screen background layer */
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -100;
+  background-image: url("https://storage.123fakturera.se/public/icons/diamond.png"), url("https://storage.123fakturera.se/public/wallpapers/sverige43.jpg");
+  background-size: 50px 30px, cover;
+  background-repeat: no-repeat, no-repeat;
+  background-position: 14% 2%, center top;
+  background-attachment: scroll, scroll;
+  background-color: #0d2e40;
+  pointer-events: none;
+}
+
 
 /* Utility styles */
 .home-close-btn-container {
