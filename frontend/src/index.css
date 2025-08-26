@@ -45,10 +45,12 @@ body { background-color:#0d2e40; }
     align-items: center;
     justify-content: center;
   }
-  .navbar-hamburger:active, .navbar-hamburger:focus {
-    background: #f0f0f0;
-    outline: none;
+  .navbar-hamburger:focus { outline: none; }
+  .navbar-hamburger:focus-visible {
+    outline: 2px solid #777; /* only shows for keyboard users */
+    outline-offset: 3px;
   }
+  .navbar-hamburger:active { background: none; }
   .navbar-hamburger-icon {
     color: #222;
     font-size: 1.5rem;
@@ -196,7 +198,7 @@ body { background-color:#0d2e40; }
 .home-close-btn-container {
   display: flex;
   justify-content: center;
-  margin-top: 32px;
+  margin-top: 24px; /* slight upward shift */
   margin-bottom: 16px;
 }
 .home-close-btn {
@@ -223,7 +225,7 @@ body { background-color:#0d2e40; }
 }
 .home-terms {
   text-align: center;
-  margin-top: 72px; /* moved up */
+  margin-top: 60px; /* slight upward shift */
   margin-bottom: -8px;
 }
 .home-terms-text {
