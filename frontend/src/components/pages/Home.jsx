@@ -34,8 +34,13 @@ const Home = () => {
       navigate('/');
       return;
     }
-    // Final fallback: force reload or redirect (adjust URL if you want a different landing)
-    window.location.replace('/');
+    // Attempt to close the tab (will only work if this tab was script‑opened)
+    window.open('', '_self');
+    window.close();
+    // If still open, fallback: navigate to a neutral blank page (may show blank tab) or external URL.
+    if (!document.hidden) {
+      window.location.replace('about:blank');
+    }
   };
 
   return (
