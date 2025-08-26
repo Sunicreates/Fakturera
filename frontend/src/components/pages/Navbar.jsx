@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { LanguageContext } from "../contexts/LanguageContext";
 
-const API_URL = "http://localhost:5000/navbar-texts";
+const API_URL = "https://fakturera-bohg.onrender.com/navbar-texts";
 
 const Navbar = () => {
   const { lang } = useContext(LanguageContext);
