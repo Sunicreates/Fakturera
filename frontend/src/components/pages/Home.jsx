@@ -7,11 +7,30 @@ const API_URL = "https://fakturera-bohg.onrender.com/home-texts";
 const Home = () => {
   const { lang } = useContext(LanguageContext);
   const [texts, setTexts] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`${API_URL}?lang=${lang}`)
-      .then(res => res.json())
-      .then(data => setTexts(data));
+    const controller = new AbortController();
+    const load = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch(`${API_URL}?lang=${lang}`, { signal: controller.signal });
+        if (!res.ok) throw new Error(`Status ${res.status}`);
+        const data = await res.json();
+        setTexts(data || {});
+      } catch (e) {
+        if (e.name !== 'AbortError') {
+          setError(e.message || 'Failed to load');
+        }
+      } finally {
+        // Only end loading if not aborted
+        if (!controller.signal.aborted) setLoading(false);
+      }
+    };
+    load();
+    return () => controller.abort();
   }, [lang]);
 
   const handleGoBack = useCallback(() => {
@@ -39,7 +58,11 @@ const Home = () => {
   return (
     <>
       <div className="home-terms">
-        <span className="home-terms-text">{texts.terms || "Terms"}</span>
+        <h1 className="home-terms-text">{texts.terms || (loading ? '' : 'Terms')}</h1>
+      </div>
+      <div aria-live="polite" style={{position:'absolute', left:'-9999px', height:0, overflow:'hidden'}}>
+        {loading ? 'Loading content' : ''}
+        {error ? `Error: ${error}` : ''}
       </div>
       <div className="home-close-btn-container">
         <button className="home-close-btn go-back-button" onClick={handleGoBack}>
@@ -47,9 +70,17 @@ const Home = () => {
         </button>
       </div>
       <div className="home-container">
-        <p style={{ whiteSpace: 'pre-line' }}>
-          {texts.main || ""}
-        </p>
+        {loading && (
+          <p style={{margin:0}}>Loading...</p>
+        )}
+        {error && !loading && (
+          <p style={{color:'#b00020', margin:0}}>Could not load content. {error}</p>
+        )}
+        {!loading && !error && (
+          <p style={{ whiteSpace: 'pre-line', margin:0 }}>
+            {texts.main || ''}
+          </p>
+        )}
       </div>
       <div className="home-close-btn-container">
         <button className="home-close-btn go-back-button" onClick={handleGoBack}>
