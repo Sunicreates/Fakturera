@@ -202,27 +202,36 @@ body { background-color:#0d2e40; }
 .home-close-btn {
   background: #13a813;
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.15rem; /* enlarged */
   font-weight: 500;
   border: none;
-  border-radius: 32px;
-  padding: 10px 28px;
+  border-radius: 40px;
+  padding: 14px 40px; /* more breathing room */
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.15s;
 }
 .home-close-btn:hover {
   background: #0e7c0e;
 }
+.home-close-btn:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+.home-close-btn:active {
+  transform: scale(.97);
+}
 .home-terms {
   text-align: center;
-  margin-top: 96px;
-  margin-bottom: -16px;
+  margin-top: 72px; /* moved up */
+  margin-bottom: -8px;
 }
 .home-terms-text {
-  font-size: 1.3rem;
-  font-weight: bold;
+  font-size: 1.4rem; /* enlarged */
+  font-weight: 700;
   color: #fff;
+  line-height: 1.15;
+  letter-spacing: 0.5px;
 }
 .home-welcome {
   font-size: 2rem;
