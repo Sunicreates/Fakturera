@@ -180,6 +180,18 @@ body { background-color:#0d2e40; }
   pointer-events: none;
 }
 
+.background-diamond {
+  position: absolute; /* now tied to .background-layout positioning */
+  top: 32px; /* adjust as needed */
+  left: 14%;
+  width: 50px;
+  height: 30px;
+  background: url("https://storage.123fakturera.se/public/icons/diamond.png") no-repeat center center / contain;
+  z-index: -90; /* above wallpaper, below content */
+  pointer-events: none;
+  transition: top 0.25s ease; /* smooth when you tweak via JS/CSS */
+}
+
 
 /* Utility styles */
 .home-close-btn-container {
