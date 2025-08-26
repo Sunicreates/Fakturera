@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useContext } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { LanguageContext } from "../contexts/LanguageContext";
 
 const API_URL = "https://fakturera-bohg.onrender.com/home-texts";
@@ -16,13 +16,26 @@ const Home = () => {
   }, [lang]);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClose = () => {
-    if (window.history.length > 1) {
-      window.history.back();
-    } else {
-      navigate('/');
+    /*
+      Strategy:
+      1. If SPA history index > 0 -> navigate(-1)
+      2. Else if not already at root -> go root
+      3. Else final fallback: replace location (can set external landing)
+    */
+    const canGoBackSPA = window.history.state && typeof window.history.state.idx === 'number' && window.history.state.idx > 0;
+    if (canGoBackSPA) {
+      navigate(-1);
+      return;
     }
+    if (location.pathname !== '/') {
+      navigate('/');
+      return;
+    }
+    // Final fallback: force reload or redirect (adjust URL if you want a different landing)
+    window.location.replace('/');
   };
 
   return (
