@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { LanguageContext } from "../contexts/LanguageContext";
 
-const API_URL = "http://localhost:5000/home-texts";
+const API_URL = "https://fakturera-bohg.onrender.com/home-texts";
 
 const Home = () => {
   const { lang } = useContext(LanguageContext);
