@@ -4,7 +4,8 @@ import LanguageButton from "./LanguageButton";
 
 const BackgroundLayout = ({ children }) => {
   return (
-    <div className="background-layout" style={{ position: "relative" }}>
+    <div className="background-layout">
+      <div className="background-container" aria-hidden="true" />
       <LanguageButton />
       {children}
     </div>
