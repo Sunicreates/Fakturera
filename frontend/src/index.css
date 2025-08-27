@@ -305,3 +305,31 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* ------------------------------------------------------------ */
+/* Mobile orientation specific adjustments (phones only)        */
+/* We scope to max-width:800px (your existing mobile breakpoint)*/
+/* and use orientation queries so laptops / tablets ( >800px )  */
+/* are untouched. Adjust the margin values as needed.           */
+@media (max-width: 800px) and (orientation: portrait) {
+  /* Keep portrait roughly as current; optional fine-tune */
+  .home-terms { margin-top: 60px; }
+  .home-close-btn-container { margin-top: 24px; }
+}
+@media (max-width: 800px) and (orientation: landscape) {
+  /* Landscape heights are shorter; slightly reduce top spacing */
+  .home-terms { margin-top: 40px; }
+  .home-close-btn-container { margin-top: 20px; }
+}
+/* ------------------------------------------------------------ */
+
+/* Laptop+ spacing adjustments (exclude tablets <=1024px) */
+@media (min-width: 768px) {
+  /* Push section a bit further down on larger laptop/desktop screens */
+  .home-terms { margin-top: 100px; }
+  .home-close-btn-container { margin-top: 30px; }
+  /* Increase top margin of main content card while keeping horizontal centering */
+  /* Move home container a bit up compared to previous (was 96px) */
+  /* Further adjust upward (was 72px) */
+  .home-container { margin: 36px auto 56px; }
+}
